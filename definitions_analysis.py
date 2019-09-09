@@ -42,12 +42,13 @@ eraDependentParameters = {
         "pu_corrections_file" : "data/puData2017_withVar.root",
         "corrections" : [
             "el_triggerSF Ele27_WPTight_Gsf data/TriggerSF_Run2016All_v1.root",
-            "el_recoSF EGamma_SF2D data/egammaEffi.txt_EGM2D.root",
-            "el_idSF EGamma_SF2D data/egammaEffi.txt_EGM2D.root",
+            "el_recoSF EGamma_SF2D data/egammaEffi_txt_EGM2D.root",
+            "el_idSF EGamma_SF2D data/egammaEffi_txt_EGM2D.root",
             "mu_triggerSF IsoMu27_PtEtaBins/pt_abseta_ratio data/EfficienciesAndSF_RunBtoF_Nov17Nov2017.histo.root",
             "mu_isoSF NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta data/RunBCDEF_SF_ISO.histo.root",
             "mu_idSF NUM_TightID_DEN_genTracks_pt_abseta data/RunBCDEF_SF_ID.histo.root",
-            "BTagSF * data/DeepCSV_Moriond17_B_H.csv"
+            ####"BTagSF * data/DeepCSV_Moriond17_B_H.csv"
+            "BTagSF * ./data/deepCSV_sfs_v2.btag.csv"
         ]
     },
     "2017" : {
@@ -74,36 +75,69 @@ samples_info = {
     "ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8": {
             "process": "ttHTobb",
             "XS": 0.2934045,
-            "ngen_weight": 4216319.315883999
+            "ngen_weight": {
+                '2016': 1,
+                '2017': 4216319.315883999,
+                '2018': 1,
+                },
             },
     "TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8": {
             "XS": 365.45736135,
-            "ngen_weight": 720253370.0403845
+            "ngen_weight": {
+                '2016': 1,
+                '2017':720253370.0403845,
+                '2018': 1,
+                },
             },
     "ttHToNonbb_M125_TuneCP5_13TeV-powheg-pythia8": {
             "process": "ttHToNonbb",
             "XS": 0.2150955,
-            "ngen_weight": 4484065.542378001},
+            "ngen_weight": {
+                '2016': 1,
+                '2017': 4484065.542378001,
+                '2018': 1,
+                },
+            },
     "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8": {
             "XS": 88.341903326,
-            "ngen_weight": 283000430.5968169
+            "ngen_weight": {
+                '2016': 1,
+                '2017': 283000430.5968169,
+                '2018': 1,
+                },
             },
     "TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8": {
             "XS": 377.9607353256,
-            "ngen_weight": 1647945788.3386502
+            "ngen_weight": {
+                '2016': 1,
+                '2017': 1647945788.3386502,
+                '2018': 1,
+                },
             },
 
     "TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8": {
             "XS": 88.341903326,
-            "ngen_weight": 283000430.5968169
+            "ngen_weight": {
+                '2016': 1,
+                '2017': 283000430.5968169,
+                '2018': 1,
+                },
             },
     "TTToHadronic_TuneCP5_13TeV-powheg-pythia8": {
             "XS": 377.9607353256,
-            "ngen_weight": 1647945788.3386502
+            "ngen_weight": {
+                '2016': 1,
+                '2017': 1647945788.3386502,
+                '2018': 1,
+                },
             },
     "TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8": {
             "XS": 365.45736135,
-            "ngen_weight": 720253370.0403845
+            "ngen_weight": {
+                '2016': 1,
+                '2017': 720253370.0403845,
+                '2018': 1,
+                },
             },
 }
 

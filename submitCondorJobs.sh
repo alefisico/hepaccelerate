@@ -5,6 +5,7 @@ if [[ $# -eq 0 ]] ; then
 else
 
     sample=$1
+    year=$2
 
     if [ ! -d condorlogs/ ]; then
         mkdir condorlogs/
@@ -14,23 +15,36 @@ else
     if [ ! -d "$outputDir" ]; then
         mkdir -p $outputDir
     fi
-    if [ ! -d "${outputDir}/${sample}" ]; then
-        mkdir -p $outputDir/$sample
+    jsonoutputDir=${outputDir}/${year}_private_${sample}
+    if [ ! -d "${jsonoutputDir}" ]; then
+        mkdir -p $jsonoutputDir
     fi
     workingDir=${PWD}
 
-    condorFile=${sample}_condorJob
+    if [[ $3 -eq 0 ]] ; then
+        queue="queue myfile from samples/${year}_private_${sample}.txt"
+        pyOption="--inputfile=\$2"
+    else
+        queue="queue"
+        pyOption="--filelist=${workingDir}/samples/${year}_private_${sample}.txt  "
+        #pyOption="--filelist=${workingDir}/samples/${year}_${sample}.txt  "
+    fi
+
+    condorFile=${year}_private_${sample}_condorJob
     echo '''universe    =  vanilla
 arguments   =  '${sample}' $(myfile) _$(ProcId)
 executable  =  '${PWD}'/condorlogs/'${condorFile}'.sh
 log         =  '${PWD}'/condorlogs/log_'${condorFile}'_$(ClusterId).log
 error       =  '${PWD}'/condorlogs/log_'${condorFile}'_$(ClusterId)-$(ProcId).err
 output      =  '${PWD}'/condorlogs/log_'${condorFile}'_$(ClusterId)-$(ProcId).out
-initialdir  = '$outputDir'/'${sample}'/
+initialdir  = '$jsonoutputDir'
+#should_transfer_files = YES
+#when_to_transfer_output = ON_EXIT
+#transfer_input_files = out_'${sample}'.json
 getenv      =  True
 requirements = (OpSysAndVer =?= "SLCern6")
 +JobFlavour = "tomorrow"
-queue
+'${queue}'
     ''' > condorlogs/${condorFile}.sub
 
     echo '''#!/bin/bash
@@ -39,8 +53,8 @@ export PATH=/afs/cern.ch/work/a/algomez/miniconda3/bin:$PATH
 source activate hepaccelerate_cpu
 cd '${workingDir}'
 echo ${PWD}
-echo "PYTHONPATH=hepaccelerate:coffea:. python3 '${workingDir}'/run_analysis.py --filelist '${workingDir}'/samples/2016_ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8.txt  --sample ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8 --cache-location='${workingDir}' --year 2016 --boosted True"
-PYTHONPATH='${workingDir}'/coffea:. python3 '${workingDir}'/run_analysis.py --filelist '${workingDir}'/samples/2016_ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8.txt  --sample ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8 --cache-location='${outputDir}' --year 2016 --boosted True
+echo "PYTHONPATH='${workingDir}'/coffea:. python3 '${workingDir}'/myrun_analysis.py --sample=$1 --cache-location='${outputDir}' '${pyOption}' --year='${year}' --boosted"
+PYTHONPATH='${workingDir}'/coffea:. python3 '${workingDir}'/myrun_analysis.py --sample=$1 --cache-location='${outputDir}' '${pyOption}' --year='${year}' --boosted
     ''' > condorlogs/${condorFile}.sh
 
     condor_submit condorlogs/${condorFile}.sub
