@@ -33,7 +33,7 @@ allSamples[ '2018_TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8' ] = [ '/TTToSem
 dictSamples = {}
 for sam in allSamples:
     if sam.startswith( args.dataset ): dictSamples[ sam ] = allSamples[ sam ]
-    #else: dictSamples = allSamples
+    else: dictSamples = allSamples
 
 for sample, jsample in dictSamples.items():
 
