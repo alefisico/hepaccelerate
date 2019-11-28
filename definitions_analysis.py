@@ -96,8 +96,8 @@ samples_info = {
     "ttHToNonbb_M125_TuneCP5_13TeV-powheg-pythia8": {
             "process": "ttHToNonbb",
             "XS": 0.21176496, #0.2150955,
-            #"ngen_weight": 913045.7391360003 #reduced file list 
-            "ngen_weight": 3095197.8117420007 
+            #"ngen_weight": 913045.7391360003 #reduced file list
+            "ngen_weight": 3095197.8117420007
             },
     "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8": {
             "XS": 88.341903326,
@@ -217,7 +217,7 @@ histogram_settings = {
     "tau21_WHcandidates": (0,1,31),
 
     "best_higgs_candidate__pt": (200, 500,31),
-    "best_higgs_candidate__msoftdrop": (0, 250, 26),
+    "best_higgs_candidate__msoftdrop": (0, 250, 251),
     "best_higgs_candidate__tau21": (-1, 1, 31),
     "best_higgs_candidate__"+eraDependentParameters["2017"]["bbtagging algorithm"]: (-1, 1, 31),
 
